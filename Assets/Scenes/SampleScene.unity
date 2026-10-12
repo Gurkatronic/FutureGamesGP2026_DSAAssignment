@@ -5318,6 +5318,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 0, z: 4}
   m_Center: {x: 0, y: -3.2059307e-31, z: 0}
+--- !u!54 &1876018763 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7142728723388556604, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
+  m_PrefabInstance: {fileID: 8404672306686481740}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1878765581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5920,12 +5925,32 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3840739055021509276, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1876018763}
+    - target: {fileID: 3840739055021509276, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
+      propertyPath: jumpSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840739055021509276, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
       propertyPath: jumpAction
       value: 
       objectReference: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     - target: {fileID: 3840739055021509276, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
+      propertyPath: movementSpeed
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840739055021509276, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
       propertyPath: interactionRange
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142728723388556604, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142728723388556604, guid: 613ff64883d4f164fa524c12ce6f8bec, type: 3}
+      propertyPath: m_LinearDamping
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
