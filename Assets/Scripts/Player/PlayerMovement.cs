@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Player {
     public class PlayerMovement : MonoBehaviour {
+        // this is a test change for the git lecture
         [SerializeField]
         private Animator animator = null;
 
