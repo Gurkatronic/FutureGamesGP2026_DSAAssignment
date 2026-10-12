@@ -12,6 +12,8 @@ namespace Player {
         [SerializeField]
         private InputActionReference moveAction = null;
         [SerializeField]
+        private InputActionReference jumpAction = null;
+        [SerializeField]
         private InputActionReference interactAction = null;
 
         [Header("Movement")]
@@ -29,7 +31,7 @@ namespace Player {
                 return;
             }
 
-            if(!moveAction || !interactAction) {
+            if(!moveAction || !interactAction || !jumpAction) {
                 Debug.LogError("Input actions not set");
                 return;
             }
@@ -43,6 +45,10 @@ namespace Player {
         private void OnMove(InputAction.CallbackContext context) {
             movementInput = context.ReadValue<Vector2>();
             animator.SetBool("bIsMoving", movementInput != Vector2.zero);
+        }
+
+        private void OnJump(InputAction.CallbackContext context) {
+
         }
 
         private void OnInteract(InputAction.CallbackContext context) {
