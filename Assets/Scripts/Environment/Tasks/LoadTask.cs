@@ -19,8 +19,13 @@ public class LoadTask : Task
             return;
         }
 
-        GameManager.Instance.mainComputer.CreateStack(personClassList);
+        //GameManager.Instance.mainComputer.CreateStack(personClassList);
+        foreach(PersonClass person in personClassList.listOfPersons) {
+            PersonTask newTask = new(person);
+            GameManager.Instance.mainComputer.AddTaskQue(newTask);
+        }
 
+        Debug.Log("Loaded");
             
     }
 }

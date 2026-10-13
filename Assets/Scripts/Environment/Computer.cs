@@ -7,32 +7,33 @@ namespace Environment {
     public class Computer : MonoBehaviour, IInteractable {
         
         [SerializeField] public Stack<PersonTask> testStack = new Stack<PersonTask>();
+        [SerializeField] public Queue<Task> computerTasks = new Queue<Task>();
+        [SerializeField] SaveTask saveTask;
+        [SerializeField] LoadTask loadTask;
+        //denna ska nog vara en stack med flera olika person tasks.
+        Hashtable testHash = new Hashtable();
+        PersonClassList personsLoaded;
+
         public PopText popText;
 
 
         private void Awake() {
-            //CreateStack();
+            ComputerQueTasks();
         }
 
-        public void CreateStack(PersonClassList personClassList) {
-            if(personClassList == null) {
-                Debug.Log("THIS ONE IS EMPTY LOL");
-                return;
-            }
+        public void ComputerQueTasks() {
+            computerTasks.Enqueue(saveTask);
+            computerTasks.Enqueue(loadTask);
+        }
 
-            foreach(PersonClass person in personClassList.listOfPersons) {
-                PersonTask newTask = new();
-                newTask.person = person;
-                testStack.Push(newTask);
-            }
+        public void AddTaskQue(Task newTask) {
+            computerTasks.Enqueue(newTask);
+            computerTasks.Enqueue(loadTask);
         }
 
         public void OnInteract() {
-            if(testStack.Count > 0)
-                testStack.Pop().Execute();
-            else
-                Debug.Log("STACK EMPTY");
-
+            while(computerTasks.Count > 0)
+                computerTasks.Dequeue().Execute();
         }
     }
 }

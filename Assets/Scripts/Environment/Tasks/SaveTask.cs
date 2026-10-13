@@ -26,6 +26,6 @@ public class SaveTask : Task
             File.WriteAllText(savePath, jsonSaveString);
 
         }
-
+        Debug.Log("Saved");
     }
 }
