@@ -10,6 +10,7 @@ namespace Environment {
         [SerializeField] public Queue<Task> computerTasks = new Queue<Task>();
         [SerializeField] SaveTask saveTask;
         [SerializeField] LoadTask loadTask;
+        [SerializeField] SortTask sortTask;
         //denna ska nog vara en stack med flera olika person tasks.
         Hashtable testHash = new Hashtable();
         PersonClassList personsLoaded;

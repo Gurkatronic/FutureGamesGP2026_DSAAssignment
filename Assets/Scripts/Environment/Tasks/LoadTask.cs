@@ -19,6 +19,10 @@ public class LoadTask : Task
             return;
         }
 
+        SortTask newSort = new(SortType.Firstname);
+
+        personClassList = newSort.Execute(personClassList);
+
         //GameManager.Instance.mainComputer.CreateStack(personClassList);
         foreach(PersonClass person in personClassList.listOfPersons) {
             PersonTask newTask = new(person);

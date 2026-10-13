@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+public enum SortType {
+    Firstname,
+    Lastname,
+    Age
+}
 
 public class PersonClassList {
     public PersonClass[] listOfPersons;
