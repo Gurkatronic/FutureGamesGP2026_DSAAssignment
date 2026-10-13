@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02484ff5b53154743b72daf97dc2ac44, type: 3}
+  m_Name: SaveTask
+  m_EditorClassIdentifier: Assembly-CSharp::SaveTask
+  fileName: PersonSaveFile
+  fileExtension: .json
+  personClasses:
+  - age: 123
+    firstName: Anton
+    lastName: Gerklev
+  - age: 34
+    firstName: Stefany
+    lastName: Hultman
+  - age: 54
+    firstName: Jerry
+    lastName: Springer
+  - age: 547
+    firstName: Leif
+    lastName: Loket
+  - age: 32
+    firstName: Morgan
+    lastName: Koppari
+  - age: 8
+    firstName: Flens
+    lastName: Ost
+  - age: 12
+    firstName: Ica
+    lastName: Jerry
+  - age: 77
+    firstName: Cykel
+    lastName: Ingemar

@@ -1,6 +1,13 @@
+using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-[System.Serializable]
+
+public class PersonClassList {
+    public PersonClass[] listOfPersons;
+}
+
+[Serializable]
 public class PersonClass
 {
     public int age;

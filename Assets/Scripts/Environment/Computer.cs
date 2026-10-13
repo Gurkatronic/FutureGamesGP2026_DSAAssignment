@@ -5,25 +5,34 @@ using UnityEngine;
 
 namespace Environment {
     public class Computer : MonoBehaviour, IInteractable {
-        [SerializeField]
-        private Task testTask = null; // Put your stack/queue here :)
-        [SerializeField] public Stack<PersonClass> testStack = new Stack<PersonClass>();
+        
+        [SerializeField] public Stack<PersonTask> testStack = new Stack<PersonTask>();
         public PopText popText;
 
 
         private void Awake() {
-            CreateStack();
+            //CreateStack();
         }
 
-        void CreateStack() {
-            testStack.Push(new(30, "Anton", "gerklev"));
-            testStack.Push(new(22, "Dnton", "Cerklev"));
-            testStack.Push(new(33, "Onton", "Eerklev"));
-            testStack.Push(new(32, "Cnton", "Kerklev"));
-            testStack.Push(new(31, "Bnton", "Oerklev"));
+        public void CreateStack(PersonClassList personClassList) {
+            if(personClassList == null) {
+                Debug.Log("THIS ONE IS EMPTY LOL");
+                return;
+            }
+
+            foreach(PersonClass person in personClassList.listOfPersons) {
+                PersonTask newTask = new();
+                newTask.person = person;
+                testStack.Push(newTask);
+            }
         }
+
         public void OnInteract() {
-            testTask.Execute();
+            if(testStack.Count > 0)
+                testStack.Pop().Execute();
+            else
+                Debug.Log("STACK EMPTY");
+
         }
     }
 }
