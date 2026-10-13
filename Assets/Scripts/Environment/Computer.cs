@@ -28,7 +28,6 @@ namespace Environment {
 
         public void AddTaskQue(Task newTask) {
             computerTasks.Enqueue(newTask);
-            computerTasks.Enqueue(loadTask);
         }
 
         public void OnInteract() {
