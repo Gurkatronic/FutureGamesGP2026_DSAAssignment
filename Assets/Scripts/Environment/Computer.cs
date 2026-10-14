@@ -6,34 +6,49 @@ using UnityEngine;
 namespace Environment {
     public class Computer : MonoBehaviour, IInteractable {
         
-        [SerializeField] public Stack<PersonTask> testStack = new Stack<PersonTask>();
-        [SerializeField] public Queue<Task> computerTasks = new Queue<Task>();
+        public Stack<PersonTask> testStack = new Stack<PersonTask>();
+        public Kö<Task> computerTasks = new Kö<Task>();
+        public Glist<Task> testGlist = new Glist<Task>();
         [SerializeField] SaveTask saveTask;
         [SerializeField] LoadTask loadTask;
         [SerializeField] SortTask sortTask;
-        //denna ska nog vara en stack med flera olika person tasks.
-        Hashtable testHash = new Hashtable();
-        PersonClassList personsLoaded;
+
+        public Glist<string> myLista = new Glist<string>();
+        
 
         public PopText popText;
 
 
         private void Awake() {
+
             ComputerQueTasks();
+            testGlist.Add(saveTask);
+            testGlist.Add(saveTask);
+            testGlist.Add(loadTask);
+            testGlist.Add(saveTask);
+            testGlist.PrintContent();
+            testGlist.WipeThis(loadTask);
+
+
         }
 
         public void ComputerQueTasks() {
-            computerTasks.Enqueue(saveTask);
-            computerTasks.Enqueue(loadTask);
+            computerTasks.LineUp(saveTask);
+            computerTasks.LineUp(loadTask);
+            
         }
 
         public void AddTaskQue(Task newTask) {
-            computerTasks.Enqueue(newTask);
+            computerTasks.LineUp(newTask);
         }
 
         public void OnInteract() {
-            while(computerTasks.Count > 0)
-                computerTasks.Dequeue().Execute();
+            while(computerTasks.Count() > 0)
+                computerTasks.Enter().Execute();
+
+            if(computerTasks.Count() <= 0)
+                Debug.Log("Computer is out of tasks");
+
         }
     }
 }
