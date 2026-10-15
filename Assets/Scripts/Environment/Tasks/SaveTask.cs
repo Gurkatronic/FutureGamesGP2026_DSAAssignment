@@ -9,8 +9,8 @@ public class SaveTask : Task
     public string fileExtension = ".json";
     public PersonClass[] personClasses;
     public override void Execute() {
-        string savePath = Path.Combine(Application.persistentDataPath, fileName+fileExtension);
 
+        string savePath = Path.Combine(Application.persistentDataPath, fileName+fileExtension);
 
         PersonClassList personClassList = new();
         personClassList.listOfPersons = personClasses;

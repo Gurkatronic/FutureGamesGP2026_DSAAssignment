@@ -12,6 +12,8 @@ public class LoadTask : Task
         foreach(string fileName in fileNames) {
             string fileText = File.ReadAllText(fileName);
             personClassList = JsonUtility.FromJson<PersonClassList>(fileText);
+            if(!string.IsNullOrEmpty(fileText))
+                break;
         }
 
         if(personClassList == null) {

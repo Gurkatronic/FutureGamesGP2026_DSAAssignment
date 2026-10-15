@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Glist<T>
 {
-    int startSize = 1;
+    int startSize = 5;
     int currentPos = 0;
     int sizeMultiplier = 2;
     public int Count { get => currentPos; }
@@ -32,7 +32,7 @@ public class Glist<T>
     /// </summary>
     /// <param name="content">The new item</param>
     public void Add(T content) {
-        if(currentPos == contents.Length - 1) 
+        if(currentPos >= contents.Length - 1) 
             ResizeList();
 
         contents[currentPos] = content;
@@ -70,7 +70,7 @@ public class Glist<T>
     void ResizeList() {
         T[] newArray = new T[currentPos*sizeMultiplier];
 
-        for(int i = 0; i < contents.Length; i++) {
+        for(int i = 0; i < currentPos; i++) {
             newArray[i] = contents[i];
         }
         contents = newArray;
