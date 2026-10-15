@@ -8,7 +8,8 @@ public class Glist<T>
 {
     int startSize = 1;
     int currentPos = 0;
-    public int Count = 0;
+    int sizeMultiplier = 2;
+    public int Count { get => currentPos; }
     T[] contents;
     IComparer<T> comparer;
     public T this[int index] {
@@ -26,20 +27,22 @@ public class Glist<T>
         
     }
     
+    /// <summary>
+    /// Add a new item to the Glist
+    /// </summary>
+    /// <param name="content">The new item</param>
+    public void Add(T content) {
+        if(currentPos == contents.Length - 1) 
+            ResizeList();
 
-    public void Add(T content) { // den borde alltid lägga in på 0 i denna funktionen
-        //tidigare listan är torkel
-        //Lägger in torka och ökar storleken
-        //Nu behöver jag ta min tidigare lista och lägga till efter
-        if(currentPos == contents.Length - 1) {
-            ResizeList((currentPos+1) * 2);
-        }
         contents[currentPos] = content;
         currentPos++;
-        Count = currentPos;
 
     }
-
+    /// <summary>
+    /// Search the glist for this 'content' and remove that instance from the Glist
+    /// </summary>
+    /// <param name="content">The item to remove in the Glist</param>
     public void WipeThis(T content) {
         for(int i = 0; i < contents.Length; i++) {
             Debug.Log(comparer.Compare(contents[i], content));
@@ -49,8 +52,6 @@ public class Glist<T>
                     contents[x-1] = contents[x];
                 }
                 currentPos--;
-                Count = currentPos;
-
             }
         }
     }
@@ -63,8 +64,11 @@ public class Glist<T>
         }
     }
 
-    void ResizeList(int newSize) {
-        T[] newArray = new T[newSize];
+    /// <summary>
+    /// This increases the size of the array that is the fake list under the hood
+    /// </summary>
+    void ResizeList() {
+        T[] newArray = new T[currentPos*sizeMultiplier];
 
         for(int i = 0; i < contents.Length; i++) {
             newArray[i] = contents[i];
@@ -74,6 +78,10 @@ public class Glist<T>
         //Debug.Log("New size is: " + contents.Length);
     }
 
+    /// <summary>
+    /// Remove the last added element of the list
+    /// </summary>
+    /// <returns>Return the item that was removed from the Glist</returns>
     public T Pop() {
         T tempCont = contents[0];
         contents[0] = default(T);
@@ -83,14 +91,19 @@ public class Glist<T>
         }
 
         currentPos--;
-        Count = currentPos;
         return tempCont;
     }
 
+    /// <summary>
+    /// Clear everything in the Glist
+    /// </summary>
     public void Clear() {
         contents = new T[startSize];
         currentPos = 0;
-        Count = currentPos;
+    }
+
+    public T LastElement() {
+        return contents[Count - 1];
     }
 
 }

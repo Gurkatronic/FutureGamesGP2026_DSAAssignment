@@ -27,7 +27,6 @@ namespace Environment {
             testGlist.Add(loadTask);
             testGlist.Add(saveTask);
             testGlist.PrintContent();
-            testGlist.WipeThis(loadTask);
 
 
         }
