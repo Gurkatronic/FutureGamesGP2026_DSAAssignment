@@ -14,14 +14,13 @@ public class Glist<T>
     IComparer<T> comparer;
     public T this[int index] {
         get {
-            Debug.Log("index is : " + index);
-            if(index >= currentPos-1) 
+            if(index >= currentPos) 
                 throw new Exception("Glist has no element in this position");
 
             return contents[index];
         }
         set {
-            if(index >= currentPos-1)
+            if(index >= currentPos)
                 throw new Exception("Glist has no element in this position");
 
             contents[index] = value;
@@ -63,7 +62,9 @@ public class Glist<T>
         }
     }
 
-
+    /// <summary>
+    /// Shows debug messages for every item in the list, this a unity feature only
+    /// </summary>
     public void PrintContent() {
         for(int i = 0; i < contents.Length; i++) {
             if(contents[i] != null)
@@ -108,6 +109,10 @@ public class Glist<T>
         currentPos = 0;
     }
 
+    /// <summary>
+    /// Remove the last item from the Glist;
+    /// </summary>
+    /// <returns>The removed item</returns>
     public T RemoveLast() {
         T tempCont = contents[currentPos - 1];
 
@@ -119,6 +124,9 @@ public class Glist<T>
         return tempCont;
     }
 
+    /// <summary>
+    /// Randomize the the items in the Glist
+    /// </summary>
     public void RandomizeGlist() {
 
         for(int i = 0; i < currentPos; i++) {

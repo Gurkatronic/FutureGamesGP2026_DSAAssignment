@@ -35,7 +35,7 @@ public class Kö<T>
     /// Does this item have the right to enter?
     /// </summary>
     /// <returns>hmmm the image is a bit blurry...</returns>
-    /// <exception cref="System.Exception"></exception>
+    /// <exception cref="System.Exception">Kö </exception>
     public T IdCheck() {
         if(contents.Count <= 0)
             throw new System.Exception("The Kö is empty");
