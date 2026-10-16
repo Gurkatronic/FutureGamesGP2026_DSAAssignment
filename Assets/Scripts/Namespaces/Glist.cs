@@ -14,9 +14,16 @@ public class Glist<T>
     IComparer<T> comparer;
     public T this[int index] {
         get {
+            Debug.Log("index is : " + index);
+            if(index >= currentPos-1) 
+                throw new Exception("Glist has no element in this position");
+
             return contents[index];
         }
         set {
+            if(index >= currentPos-1)
+                throw new Exception("Glist has no element in this position");
+
             contents[index] = value;
         }
     }
@@ -48,7 +55,7 @@ public class Glist<T>
             Debug.Log(comparer.Compare(contents[i], content));
             if(comparer.Compare(contents[i], content) == 0) {
                 //if match hit here take the other end and merge it into the list
-                for(int x = i+1; x < contents.Length; x++) {
+                for(int x = i+1; x < currentPos; x++) {
                     contents[x-1] = contents[x];
                 }
                 currentPos--;
@@ -84,7 +91,6 @@ public class Glist<T>
     /// <returns>Return the item that was removed from the Glist</returns>
     public T Pop() {
         T tempCont = contents[0];
-        contents[0] = default(T);
 
         for(int i = 1; i < currentPos; i++) {
             contents[i - 1] = contents[i];
@@ -102,8 +108,25 @@ public class Glist<T>
         currentPos = 0;
     }
 
-    public T LastElement() {
-        return contents[Count - 1];
+    public T RemoveLast() {
+        T tempCont = contents[currentPos - 1];
+
+        for(int i = 1; i < currentPos; i++) {
+            contents[i - 1] = contents[i];
+        }
+
+        currentPos--;
+        return tempCont;
+    }
+
+    public void RandomizeGlist() {
+
+        for(int i = 0; i < currentPos; i++) {
+
+            int randomPos = UnityEngine.Random.Range(0, currentPos-1);
+            (contents[i], contents[randomPos]) =
+            (contents[randomPos], contents[i]);
+        }
     }
 
 }

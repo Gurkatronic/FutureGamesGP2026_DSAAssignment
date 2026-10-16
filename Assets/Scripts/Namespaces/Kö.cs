@@ -7,18 +7,12 @@ using UnityEngine;
 public class Kö<T>
 {
     Glist<T> contents;
+    public int Count { get { return contents.Count; } }
     /// <summary>
     /// Hire a bouncer and roll out the red carpet.
     /// </summary>
     public Kö() {
         contents = new Glist<T>();
-    }
-    /// <summary>
-    /// Check the amount of items in the Kö
-    /// </summary>
-    /// <returns>There is this many in the Kö</returns>
-    public int Count() {
-        return contents.Count;
     }
 
     /// <summary>
@@ -47,5 +41,12 @@ public class Kö<T>
             throw new System.Exception("The Kö is empty");
 
         return contents[0];
+    }
+
+    /// <summary>
+    /// There is a police car nearby everyone gets confused and returns into the Kö in randomized positions
+    /// </summary>
+    public void RandomizeKö() {
+        contents.RandomizeGlist();
     }
 }
