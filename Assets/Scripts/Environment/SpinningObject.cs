@@ -4,7 +4,7 @@ public class SpinningObject : MonoBehaviour
 {
     [SerializeField] Transform spinTransform;
 
-    [SerializeField] float spinSpeed;
+    [SerializeField] public float spinSpeed;
 
 
     private void Update() {
