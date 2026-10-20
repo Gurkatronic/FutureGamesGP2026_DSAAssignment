@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Space(10)]
     [Header("Controls")]
     [SerializeField] CharacterController charController;
+    [SerializeField] float gravityStr = 2f;
     [SerializeField] float moveSpeed = 5;
     [SerializeField] float rotateSpeed = 15;
     [SerializeField] float lookSensitivity = 2f;
@@ -106,14 +107,13 @@ public class PlayerController : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
-        //float oldY = moveDirection.y;
-
         Vector2 newSpeed = new Vector2(moveVector.y * moveSpeed, moveVector.x * moveSpeed);
 
         Vector3 moveDirection = (forward *newSpeed.x) + (right * newSpeed.y);
-        //moveDirection.y = oldY;
+
 
         charController.Move(moveDirection * moveSpeed*Time.deltaTime);
+        charController.Move(Vector3.down * gravityStr * Time.deltaTime);
     }
 
     void HandleLooking(Vector2 mouseDelta) {
