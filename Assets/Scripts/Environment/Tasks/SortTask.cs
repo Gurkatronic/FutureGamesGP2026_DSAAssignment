@@ -1,4 +1,5 @@
 using Environment.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
@@ -18,6 +19,11 @@ public class FieldPackage {
         this.variableName = variableName;
         this.isPublic = isPublic;
         this.variableValue = variableValue;
+    }
+
+    public Type GetVariableType() {
+        
+        return variableValue.GetType();
     }
 }
 
@@ -120,6 +126,22 @@ public class SortTask : Task
 
     void QuickSort() {
         //split in half until sorted
+    }
+
+    void InsertionSort<T>(T[] array, int sortPos) {
+        FieldPackage[] TFields = GenericFieldNames(array[0]);
+        //IComparable<TFields[0].variableValue.GetType()> comparable = default;
+        //comparable.CompareTo("word", "word2");
+        
+        for(int i = 0; i < array.Length; i++) {
+            FieldPackage[] iFields = GenericFieldNames(array[i]);
+
+            for(int j = array.Length-1; j >= 0; j--) {
+
+                FieldPackage[] jField = GenericFieldNames(array[j]);
+
+            }
+        }
 
     }
 }

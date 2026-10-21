@@ -1355,6 +1355,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: -4161369568681901532, guid: 6482976bc40ddac4395b533cbb39e713, type: 3}
+--- !u!1 &201632762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8309755622502114331, guid: b64b330719eb57a4a80b3cb8bbe4a703, type: 3}
+  m_PrefabInstance: {fileID: 658646331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &205843302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6828,6 +6833,43 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6064676214950697442, guid: b64b330719eb57a4a80b3cb8bbe4a703, type: 3}
   m_PrefabInstance: {fileID: 658646331}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &382558791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201632762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5592b25c44429b914438d9e820ae26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Environment.Computer
+  saveTask: {fileID: 0}
+  loadTask: {fileID: 0}
+  sortTask: {fileID: 0}
+  popText: {fileID: 0}
+--- !u!65 &382558792
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201632762}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.53, y: 0.45, z: 0.86}
+  m_Center: {x: 0, y: 0.24, z: -0.02}
 --- !u!1001 &385250070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11884,7 +11926,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6064676214950697442, guid: b64b330719eb57a4a80b3cb8bbe4a703, type: 3}
       insertIndex: -1
       addedObject: {fileID: 947955112}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8309755622502114331, guid: b64b330719eb57a4a80b3cb8bbe4a703, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 382558792}
+    - targetCorrespondingSourceObject: {fileID: -8309755622502114331, guid: b64b330719eb57a4a80b3cb8bbe4a703, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 382558791}
   m_SourcePrefab: {fileID: -4161369568681901532, guid: b64b330719eb57a4a80b3cb8bbe4a703, type: 3}
 --- !u!1 &661109505
 GameObject:
