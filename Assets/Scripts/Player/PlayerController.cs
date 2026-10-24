@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InputActionReference moveAction;
     [SerializeField] InputActionReference lookAction;
     [SerializeField] InputActionReference interactAction;
+    [SerializeField] LayerMask interactLayers;
     [Space(10)]
 
     Vector2 moveInput = Vector2.zero;
@@ -70,17 +71,28 @@ public class PlayerController : MonoBehaviour
     void OnInteract(InputAction.CallbackContext callbackContext) {
         //Send a raycast from the middle of the camera and interact with objects
         Debug.Log("Interact called");
-        RaycastHit hit;
+        //RaycastHit hit;
 
         Ray ray = new Ray(cameraTransform.position, cameraTransform.TransformDirection(transform.forward) * interactRange);
         //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        if(Physics.Raycast(ray, out hit, interactRange)) {
+        RaycastHit[] rayFinder = Physics.RaycastAll(ray, interactRange, interactLayers);
+
+        foreach(RaycastHit hit in rayFinder) {
             Debug.Log(hit.collider);
-            IInteractable interactable = hit.collider?.gameObject.GetComponentInParent<IInteractable>();
+            IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
             if(interactable != null) {
                 interactable.OnInteract();
+                break;
             }
         }
+
+        //if(Physics.Raycast(ray, out hit, interactRange)) {
+        //    Debug.Log(hit.collider);
+        //    IInteractable interactable = hit.collider.gameObject.GetComponentInParent<IInteractable>();
+        //    if(interactable != null) {
+        //        interactable.OnInteract();
+        //    }
+        //}
         
         
     }
@@ -137,4 +149,12 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private void OnDisable() {
+        moveAction.action.performed -= OnMove;
+        moveAction.action.canceled -= OnMove;
+        moveAction.action.canceled -= OnStop;
+        lookAction.action.performed -= OnLook;
+        lookAction.action.canceled -= OnLook;
+        interactAction.action.performed -= OnInteract;
+    }
 }
