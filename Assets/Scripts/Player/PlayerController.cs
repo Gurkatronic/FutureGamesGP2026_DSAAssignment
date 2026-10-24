@@ -46,6 +46,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void DisableControls() {
+        moveAction.action.Disable();
+        //lookAction.action.Disable();
+        interactAction.action.Disable();
+    }
+
+    public void ActivateControls() {
+        moveAction.action.Enable();
+        lookAction.action.Enable();
+        interactAction.action.Enable();
+    }
+
     void OnMove(InputAction.CallbackContext callbackContext) {
         moveInput = callbackContext.ReadValue<Vector2>();
         isWalking = true;

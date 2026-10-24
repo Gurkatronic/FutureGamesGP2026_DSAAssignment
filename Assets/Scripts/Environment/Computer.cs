@@ -15,9 +15,9 @@ namespace Environment {
         [SerializeField] SortTask sortTask;
 
         public Glist<string> myLista = new Glist<string>();
-        
-
         public PopText popText;
+
+        [SerializeField] DollyCameraScript dollyCameraScript;
 
 
         private void Awake() {
@@ -40,12 +40,31 @@ namespace Environment {
         }
 
         public void OnInteract() {
-            while(computerTasks.Count > 0)
-                computerTasks.Enter().Execute();
+            Debug.Log("Interact pc");
+            GameManager.Instance.playerController.DisableControls();
+            dollyCameraScript.MoveTowards();
+            dollyCameraScript.destinationArrived += ActivatePcUI;
+            //while(computerTasks.Count > 0)
+            //    computerTasks.Enter().Execute();
 
-            if(computerTasks.Count <= 0)
-                Debug.Log("Computer is out of tasks");
+            //if(computerTasks.Count <= 0)
+            //    Debug.Log("Computer is out of tasks");
 
+        }
+
+        void ActivatePcUI() {
+            dollyCameraScript.destinationArrived -= ActivatePcUI;
+            GameManager.Instance.uiController.ShowPc();
+        }
+
+        void DeactivatePcUI() {
+            GameManager.Instance.uiController.ShowPc(false);
+        }
+
+        public void LeavePc() {
+            DeactivatePcUI();
+            GameManager.Instance.playerController.ActivateControls();
+            dollyCameraScript.MoveBack();
         }
 
         /*public void OnInteract() {
