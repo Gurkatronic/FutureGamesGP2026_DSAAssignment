@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [Header("PlayerObjects")]
+    [SerializeField] GameObject flashLight;
     [Header("AudioSources")]
     [SerializeField] AudioSource footAudioSource;
     [Space(10)]
@@ -145,6 +146,7 @@ public class PlayerController : MonoBehaviour
         lookAngle = Mathf.Clamp(lookAngle, -lookAngleLimit, lookAngleLimit);
 
         cameraTransform.localRotation = Quaternion.Euler(lookAngle, 0, 0);
+        flashLight.transform.localRotation = Quaternion.Euler(0, 90, lookAngle);
         transform.rotation *= Quaternion.Euler(0, mouseDelta.x * lookSensitivity, 0);
         
     }
