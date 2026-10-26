@@ -29,4 +29,10 @@ public class DoorInteract : MonoBehaviour, IInteractable {
     public void ChangeOpenState() {
         isOpen = !isOpen;
     }
+
+    [ContextMenu("Lockdoor")]
+    public void ChangeLockState() {
+        isLocked = !isLocked;
+        animator.SetBool(lockedBool, isLocked);
+    }
 }
