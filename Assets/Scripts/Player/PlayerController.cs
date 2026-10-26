@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("PlayerObjects")]
     [SerializeField] GameObject flashLight;
-    [Header("AudioSources")]
-    [SerializeField] AudioSource footAudioSource;
+    [Header("Footstep Controller")]
+    [SerializeField] Footstepper footstepper;
     [Space(10)]
     [Header("Controls")]
     [SerializeField] CharacterController charController;
@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput = Vector2.zero;
     Vector2 lookInput = Vector2.zero;
     float lookAngle = 0f;
+
+    float currentStepTime;
+    float stepTime = 0.2f;
 
 
 
@@ -107,25 +110,18 @@ public class PlayerController : MonoBehaviour
         Vector2 mouseDelta = new Vector2(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue());
         HandleLooking(mouseDelta);
         Debug.DrawRay(cameraTransform.position, cameraTransform.TransformDirection(Vector3.forward) * interactRange, Color.blue);
-        HandleFootSteps();
+        if(isWalking)
+            HandleFootSteps();
 
     }
 
-    void HandleFootSteps() { //Får nog flytta den här till en annan script det blir så mycket utav den.
-        if(isWalking) {
-            if(footAudioSource.volume != 1) {
-                float newValue = Mathf.Lerp(footAudioSource.volume, 1, Time.time);
-                footAudioSource.volume = newValue;
-            }
-        }
+    void HandleFootSteps() {
+        if(currentStepTime < stepTime)
+            currentStepTime += Time.deltaTime;
         else {
-            if(footAudioSource.volume != 0) {
-                float newValue = Mathf.Lerp(footAudioSource.volume, 0, Time.time);
-                footAudioSource.volume = newValue;
-            }
-            
+            footstepper.PlayStep();
+            currentStepTime = 0;
         }
-            
     }
 
     void HandleMovement(Vector2 moveVector) {
