@@ -5,6 +5,7 @@ public class StareKillerController : MonoBehaviour
     [SerializeField] string walkString;
     [SerializeField] string runString;
     [SerializeField] string stopString;
+    [SerializeField] string idleString;
 
     [SerializeField] Animator animator;
 
@@ -19,5 +20,9 @@ public class StareKillerController : MonoBehaviour
 
     public void StartRunning() {
         animator.SetTrigger(runString);
+    }
+
+    public void StopAnimation() {
+        animator.SetTrigger(idleString);
     }
 }

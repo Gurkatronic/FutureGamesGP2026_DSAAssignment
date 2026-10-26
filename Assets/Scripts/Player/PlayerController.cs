@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     float lookAngle = 0f;
 
     float currentStepTime;
-    float stepTime = 0.2f;
+    float stepTime = 0.4f;
 
 
 
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Interact called");
         //RaycastHit hit;
 
-        Ray ray = new Ray(cameraTransform.position, cameraTransform.TransformDirection(transform.forward) * interactRange);
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.TransformDirection(Vector3.forward) * interactRange);
         //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit[] rayFinder = Physics.RaycastAll(ray, interactRange, interactLayers);
 
