@@ -1,5 +1,6 @@
 using Environment.Tasks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
@@ -132,6 +133,7 @@ public class SortTask : Task
         FieldPackage[] TFields = GenericFieldNames(array[0]);
         //IComparable<TFields[0].variableValue.GetType()> comparable = default;
         //comparable.CompareTo("word", "word2");
+        Comparer comparer = default;
         
         for(int i = 0; i < array.Length; i++) {
             FieldPackage[] iFields = GenericFieldNames(array[i]);
@@ -139,7 +141,11 @@ public class SortTask : Task
             for(int j = array.Length-1; j >= 0; j--) {
 
                 FieldPackage[] jField = GenericFieldNames(array[j]);
+                if(comparer.Compare(iFields[i].variableValue, jField[sortPos].variableValue) > 0) {
 
+                    (array[i], array[j]) =
+                        (array[j], array[i]);
+                }
             }
         }
 
