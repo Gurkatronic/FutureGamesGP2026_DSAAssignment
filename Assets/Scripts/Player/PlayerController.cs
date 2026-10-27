@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] InputActionReference moveAction;
     [SerializeField] InputActionReference lookAction;
     [SerializeField] InputActionReference interactAction;
+    [SerializeField] InputActionReference extraInteractAction;
     [SerializeField] LayerMask interactLayers;
     [Space(10)]
 
@@ -45,9 +46,12 @@ public class PlayerController : MonoBehaviour
         moveAction.action.performed += OnMove;
         moveAction.action.canceled += OnMove;
         moveAction.action.canceled += OnStop;
+
         lookAction.action.performed += OnLook;
         lookAction.action.canceled += OnLook;
+
         interactAction.action.performed += OnInteract;
+        extraInteractAction.action.performed += OnExtraInteract;
 
     }
 
@@ -55,12 +59,14 @@ public class PlayerController : MonoBehaviour
         moveAction.action.Disable();
         //lookAction.action.Disable();
         interactAction.action.Disable();
+        extraInteractAction.action.Disable();
     }
 
     public void ActivateControls() {
         moveAction.action.Enable();
         lookAction.action.Enable();
         interactAction.action.Enable();
+        extraInteractAction.action.Enable();
     }
 
     void OnMove(InputAction.CallbackContext callbackContext) {
@@ -72,14 +78,22 @@ public class PlayerController : MonoBehaviour
         isWalking = false;
     }
 
-    void OnInteract(InputAction.CallbackContext callbackContext) {
-        //Send a raycast from the middle of the camera and interact with objects
-        Debug.Log("Interact called");
-        //RaycastHit hit;
+    void OnExtraInteract(InputAction.CallbackContext callbackContext) {
+        RaycastHit[] rayFinder = InteractRay();
 
-        Ray ray = new Ray(cameraTransform.position, cameraTransform.TransformDirection(Vector3.forward) * interactRange);
-        //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        RaycastHit[] rayFinder = Physics.RaycastAll(ray, interactRange, interactLayers);
+        foreach(RaycastHit hit in rayFinder) {
+            Debug.Log(hit.collider);
+            IExtraInteractable interactable = hit.collider.gameObject.GetComponent<IExtraInteractable>();
+            if(interactable != null) {
+                interactable.OnExtraInteract();
+                break;
+            }
+        }
+    }
+
+    void OnInteract(InputAction.CallbackContext callbackContext) {
+
+        RaycastHit[] rayFinder = InteractRay();
 
         foreach(RaycastHit hit in rayFinder) {
             Debug.Log(hit.collider);
@@ -89,16 +103,13 @@ public class PlayerController : MonoBehaviour
                 break;
             }
         }
+    }
 
-        //if(Physics.Raycast(ray, out hit, interactRange)) {
-        //    Debug.Log(hit.collider);
-        //    IInteractable interactable = hit.collider.gameObject.GetComponentInParent<IInteractable>();
-        //    if(interactable != null) {
-        //        interactable.OnInteract();
-        //    }
-        //}
-        
-        
+    RaycastHit[] InteractRay() {
+        Ray ray = new Ray(cameraTransform.position, cameraTransform.TransformDirection(Vector3.forward) * interactRange);
+        RaycastHit[] rayFinder = Physics.RaycastAll(ray, interactRange, interactLayers);
+
+        return rayFinder;
     }
 
     void OnLook(InputAction.CallbackContext callbackContext) {

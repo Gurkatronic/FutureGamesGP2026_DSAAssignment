@@ -14,7 +14,8 @@ public enum SoundClipType {
     PickupDisk,
     PickupGun,
     StartComputer,
-    DoorHandle
+    DoorHandle,
+    LockKey
 }
 public class SoundManager : MonoBehaviour
 {
@@ -29,6 +30,11 @@ public class SoundManager : MonoBehaviour
     public class ObjectSound {
         [HideInInspector] public string name;
         public AudioClip audioClip;
+    }
+
+    public class AmbienceSound {
+        [HideInInspector] public string name;
+
     }
     public List<ObjectSound> objectSounds = new List<ObjectSound>();
     public List<StepSound> stepSounds = new List<StepSound>();

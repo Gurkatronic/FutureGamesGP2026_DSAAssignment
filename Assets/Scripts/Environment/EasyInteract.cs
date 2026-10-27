@@ -2,7 +2,14 @@ using UnityEngine;
 
 public abstract class EasyInteract : MonoBehaviour
 {
-    bool isActive = false;
+    [SerializeField] protected bool isActive = false;
+
+    private void Awake() {
+        if(isActive)
+            ActiveMethod();
+        else
+            DeactiveMethod();
+    }
     public void SwitchInteract() {
         isActive = !isActive;
 
@@ -12,11 +19,7 @@ public abstract class EasyInteract : MonoBehaviour
             DeactiveMethod();
     }
 
-    public virtual void ActiveMethod() {
+    public abstract void ActiveMethod();
 
-    }
-
-    public virtual void DeactiveMethod() {
-
-    }
+    public abstract void DeactiveMethod();
 }

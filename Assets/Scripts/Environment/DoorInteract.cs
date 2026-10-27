@@ -1,15 +1,23 @@
 using Environment;
+using System.Collections;
 using UnityEngine;
 
-public class DoorInteract : MonoBehaviour, IInteractable {
+public class DoorInteract : MonoBehaviour, IInteractable, IExtraInteractable {
+    [Header("Animation")]
     string lockedBool = "Locked";
     string openedBool  = "Opened";
     string openDoorTrigger = "OpenDoor";
-    [SerializeField] Transform handle;
-    [SerializeField] float handleOpenAngle;
     [SerializeField] Animator animator;
+    [SerializeField] AnimationSoundPlay animationSoundPlay;
+    [Space(10)]
+
+    [Header("Logic")]
     public bool isOpen = false;
     public bool isLocked = false;
+    public bool hasKey = true;
+
+    [SerializeField] GameObject keyObject;
+
 
     private void Awake() {
         if(animator == null) {
@@ -35,4 +43,14 @@ public class DoorInteract : MonoBehaviour, IInteractable {
         isLocked = !isLocked;
         animator.SetBool(lockedBool, isLocked);
     }
+
+    public void OnExtraInteract() {
+        if(hasKey) { //Works but you can lock the door from the wrong side.
+            Vector3 targetRotation = isLocked ? new Vector3(0, 0, 90) : new Vector3(0, 0, 0);
+            keyObject.transform.localRotation = Quaternion.Euler(targetRotation);
+            animationSoundPlay.PlaySound(SoundClipType.LockKey);
+            ChangeLockState();
+        }
+    }
+
 }
