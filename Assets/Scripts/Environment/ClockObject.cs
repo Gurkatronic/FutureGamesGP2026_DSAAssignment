@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ClockObject : MonoBehaviour
 {
+    //Kinda works men borde gå att göra med bara en rotate och speed
     const float startAngle = 180;
     public int startHour = 12;
     public int startMin = 0;
