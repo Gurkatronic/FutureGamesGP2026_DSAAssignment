@@ -13,6 +13,7 @@ namespace Environment {
         [SerializeField] SaveTask saveTask;
         [SerializeField] LoadTask loadTask;
         [SerializeField] SortTask sortTask;
+        [SerializeField] CodeReviewTask codeReviewTask;
 
         public Glist<string> myLista = new Glist<string>();
         public PopText popText;
@@ -22,7 +23,12 @@ namespace Environment {
 
         private void Awake() {
 
-            ComputerQueTasks();
+            //ComputerQueTasks();
+            QueCodeReviewTask();
+        }
+
+        public void QueCodeReviewTask() {
+            computerTasks.LineUp(codeReviewTask);
         }
 
         public void ComputerQueTasks() {
@@ -40,15 +46,15 @@ namespace Environment {
         }
 
         public void OnInteract() {
-            Debug.Log("Interact pc");
-            GameManager.Instance.playerController.DisableControls();
-            dollyCameraScript.MoveTowards();
-            dollyCameraScript.destinationArrived += ActivatePcUI;
-            //while(computerTasks.Count > 0)
-            //    computerTasks.Enter().Execute();
+            //Debug.Log("Interact pc");
+            //GameManager.Instance.playerController.DisableControls();
+            //dollyCameraScript.MoveTowards();
+            //dollyCameraScript.destinationArrived += ActivatePcUI;
+            while(computerTasks.Count > 0)
+                computerTasks.Enter().Execute();
 
-            //if(computerTasks.Count <= 0)
-            //    Debug.Log("Computer is out of tasks");
+            if(computerTasks.Count <= 0)
+                Debug.Log("Computer is out of tasks");
 
         }
 

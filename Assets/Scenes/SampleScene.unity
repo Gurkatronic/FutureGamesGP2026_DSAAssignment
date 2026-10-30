@@ -1553,6 +1553,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   mainComputer: {fileID: 1578814748}
+  playerController: {fileID: 0}
+  uiController: {fileID: 0}
 --- !u!1001 &523543044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5963,6 +5965,10 @@ PrefabInstance:
       propertyPath: testTask
       value: 
       objectReference: {fileID: 11400000, guid: ff03f0eefaebe9e40aa1e0d120fb14ac, type: 2}
+    - target: {fileID: 1261029998129311158, guid: 7d560e7070230eb46aeb1576bedf22f3, type: 3}
+      propertyPath: codeReviewTask
+      value: 
+      objectReference: {fileID: 11400000, guid: 5da8348e78afe2a40993fd983a2e91e1, type: 2}
     - target: {fileID: 1261029998129311158, guid: 7d560e7070230eb46aeb1576bedf22f3, type: 3}
       propertyPath: testPersonTask
       value: 
