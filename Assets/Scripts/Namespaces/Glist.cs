@@ -9,7 +9,7 @@ public class Glist<T> : IEnumerable<T> {
     int currentPos = 0;
     int sizeMultiplier = 2;
     public int Count { get => currentPos; }
-    T[] contents;
+    [SerializeField] T[] contents;
     IComparer<T> comparer;
     public T this[int index] {
         get {

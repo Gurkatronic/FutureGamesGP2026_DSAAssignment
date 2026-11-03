@@ -10,6 +10,7 @@ public class TenantListView : MonoBehaviour
     [SerializeField] TenantDataBox[] createdBoxes;
 
 
+
     public void LoadData(TenantsData data) {
         tenantsData = data;
         FillList();

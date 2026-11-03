@@ -2,15 +2,25 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
+//made this interface to implicitly tell what types we are comparing instead of unboxing and boxing objects
+
+/// <summary>
+/// Comparison interface
+/// </summary>
+/// <typeparam name="T">The type of class</typeparam>
+/// <typeparam name="E">The enumerator to pick what field to look at</typeparam>
+public interface IClassCompare<T, E> {
+    public abstract int CompareThis(T b, E e); 
+}
+
 [Serializable]
 public class TenantsData
 {
     public List<Tenant> allTenants = new List<Tenant>();
-
 }
 
 [Serializable]
-public class Tenant { //ska konvertera värden i klassen också
+public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera värden i klassen också
     public string name;
     public string firstName; // Splittar stringen name till first och last name
     public string lastName;
@@ -20,6 +30,47 @@ public class Tenant { //ska konvertera värden i klassen också
     public DateTime parsedLastEntrance;
     public string lastExitFromEngineRoom;
     public DateTime parsedLastExit;
+
+    public int CompareThis(Tenant b, TenantSortMethod e) {
+        int returnValue = 0;
+        switch(e) {
+            case TenantSortMethod.Name:
+                returnValue = CompareValues(name, b.name);
+                break;
+            case TenantSortMethod.AptNum:
+                returnValue = CompareValues(apartmentNum, b.apartmentNum);
+                break;
+            case TenantSortMethod.ExitDate:
+                returnValue = CompareValues(parsedLastExit, b.parsedLastExit);
+                break;
+            case TenantSortMethod.EnterDate:
+                returnValue = CompareValues(parsedLastEntrance, b.parsedLastEntrance);
+                break;
+        }
+
+        return returnValue;
+    }
+
+    int CompareValues(int a, int b) {
+        if(a > b)
+            return 1;
+        else if(a < b)
+            return -1;
+        else
+            return 0;
+    }
+    int CompareValues(DateTime a, DateTime b) {
+        if(a > b)
+            return 1;
+        else if(a < b)
+            return -1;
+        else
+            return 0;
+    }
+
+    int CompareValues(string a, string b) {
+        return string.Compare(a, b);
+    }
 
     public void InitializeData() {
         InitializeName();

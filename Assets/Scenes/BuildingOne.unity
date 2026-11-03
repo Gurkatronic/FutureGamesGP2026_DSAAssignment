@@ -10409,7 +10409,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5592b25c44429b914438d9e820ae26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Environment.Computer
+  testGlist:
+    contents:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   testTask: {fileID: 11400000, guid: 3aa5183164734ad4aabccfa0f20eaf5c, type: 2}
+  myLista:
+    contents:
+    - 
+    - 
+    - 
+    - 
+    - 
   popText: {fileID: 0}
   dollyCameraScript: {fileID: 1334032882}
   tenantsData:
