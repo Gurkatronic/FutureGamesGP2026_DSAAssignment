@@ -6,45 +6,40 @@ using UnityEngine;
 
 namespace Environment {
     public class Computer : MonoBehaviour, IInteractable {
-
+        public static Computer Instance;
         public Hög<Task> computerStack = new Hög<Task>();
         public Kö<Task> computerTasks = new Kö<Task>();
         public Glist<Task> testGlist = new Glist<Task>();
-        [SerializeField] SaveTask saveTask;
-        [SerializeField] LoadTask loadTask;
-        [SerializeField] SortTask sortTask;
-        [SerializeField] CodeReviewTask codeReviewTask;
 
+        [SerializeField] Task testTask;
         public Glist<string> myLista = new Glist<string>();
         public PopText popText;
 
         [SerializeField] DollyCameraScript dollyCameraScript;
+        [SerializeField] TenantsData tenantsData;
+        [SerializeField] TenantListView tenantListView;
 
 
         private void Awake() {
 
-            //ComputerQueTasks();
-            QueCodeReviewTask();
+            if(Instance != this) {
+                Instance = this;
+            }
+            computerTasks.LineUp(testTask);
         }
 
         public void QueCodeReviewTask() {
-            computerTasks.LineUp(codeReviewTask);
         }
 
         public void ComputerQueTasks() {
-            //
-            computerTasks.LineUp(saveTask);
-            computerTasks.LineUp(loadTask);
-
-            //
-            computerStack.Pack(loadTask);
-            computerStack.Pack(saveTask);
+            
         }
 
         public void AddTaskQue(Task newTask) {
             computerTasks.LineUp(newTask);
         }
 
+        [ContextMenu("Interact")]
         public void OnInteract() {
             //Debug.Log("Interact pc");
             //GameManager.Instance.playerController.DisableControls();
@@ -56,6 +51,11 @@ namespace Environment {
             if(computerTasks.Count <= 0)
                 Debug.Log("Computer is out of tasks");
 
+        }
+
+        [ContextMenu("Test listview")]
+        void TestListView() {
+            tenantListView.LoadData(tenantsData);
         }
 
         void ActivatePcUI() {
@@ -73,10 +73,9 @@ namespace Environment {
             dollyCameraScript.MoveBack();
         }
 
-        /*public void OnInteract() {
-            while(computerStack.Count > 0) {
-                computerStack.Pop
-            }
-        }*/
+        public void ReciveTenants(TenantsData data) {
+            Debug.Log("Reciving list of tenants");
+            tenantsData = data;
+        }
     }
 }

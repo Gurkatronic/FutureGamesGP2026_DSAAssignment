@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Glist<T>
-{
+public class Glist<T> : IEnumerable<T> {
     int startSize = 5;
     int currentPos = 0;
     int sizeMultiplier = 2;
@@ -137,4 +136,13 @@ public class Glist<T>
         }
     }
 
+    public IEnumerator<T> GetEnumerator() {
+        Debug.Log("TEST");
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+        Debug.Log("TEST");
+        return GetEnumerator();
+    }
 }

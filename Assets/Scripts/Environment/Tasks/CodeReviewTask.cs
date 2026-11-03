@@ -40,7 +40,6 @@ public class CodeReviewTask : Task
             BubbleSort(passedGlist, i+1);
         }
 
-
         Compare(passedGlist, 0);      
     }
 
