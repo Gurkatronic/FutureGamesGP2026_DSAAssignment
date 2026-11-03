@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TenantListView : MonoBehaviour
@@ -8,6 +9,7 @@ public class TenantListView : MonoBehaviour
     TenantsData tenantsData;
 
     [SerializeField] TenantDataBox[] createdBoxes;
+    [SerializeField] SortingTask sortingTask;
 
 
 
@@ -22,6 +24,26 @@ public class TenantListView : MonoBehaviour
             TenantDataBox newBox = Instantiate(tenantDataPrefab, contentParent.transform);
             newBox.ShowData(tenantsData.allTenants[i]);
             createdBoxes[i] = newBox;
+        }
+    }
+
+    public void SortBy(int sortType) {
+        if(sortingTask != null) {
+            TenantSortMethod sortMethod = (TenantSortMethod)sortType;
+            int[] sortedIndexes = sortingTask.Execute(tenantsData.allTenants.ToArray(), sortMethod);
+            HideAll();
+
+            ShowIndexBased(sortedIndexes);
+        }
+    }
+
+    public void TestMethod(TenantSortMethod sortMethod) {
+
+    }
+
+    void ShowIndexBased(int[] index) {
+        for(int i = 0; i < index.Length; i++) {
+            createdBoxes[i].ShowData(tenantsData.allTenants[index[i]]);
         }
     }
 

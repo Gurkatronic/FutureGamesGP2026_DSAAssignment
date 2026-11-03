@@ -35,7 +35,7 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
         int returnValue = 0;
         switch(e) {
             case TenantSortMethod.Name:
-                returnValue = CompareValues(name, b.name);
+                returnValue = CompareValues(firstName, b.firstName);
                 break;
             case TenantSortMethod.AptNum:
                 returnValue = CompareValues(apartmentNum, b.apartmentNum);
@@ -60,12 +60,7 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
             return 0;
     }
     int CompareValues(DateTime a, DateTime b) {
-        if(a > b)
-            return 1;
-        else if(a < b)
-            return -1;
-        else
-            return 0;
+        return DateTime.Compare(a, b);
     }
 
     int CompareValues(string a, string b) {

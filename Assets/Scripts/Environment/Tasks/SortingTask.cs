@@ -1,8 +1,10 @@
 using Environment.Tasks;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Analytics.IAnalytic;
 
+[Serializable]
 public enum TenantSortMethod {
     Name,
     AptNum,
@@ -59,7 +61,7 @@ public class SortingTask : Task
         }
 
         pointer++;
-        (indexArray[pointer], indexArray[high]) = (indexArray[pointer], indexArray[high]);
+        (indexArray[high], indexArray[pointer]) = (indexArray[pointer], indexArray[high]);
 
         return pointer;
     }
