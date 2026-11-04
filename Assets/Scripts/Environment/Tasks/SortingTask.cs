@@ -1,10 +1,8 @@
 using Environment.Tasks;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Analytics.IAnalytic;
 
-[Serializable]
 public enum TenantSortMethod {
     Name,
     AptNum,
@@ -17,7 +15,6 @@ public class SortingTask : Task
 {
     public int[] Execute(Tenant[] dataList,TenantSortMethod sortMethod) {
         
-
         return QuickSortIndex(dataList, sortMethod);
     }
 
@@ -33,7 +30,7 @@ public class SortingTask : Task
             sortedIndexArray[i] = i;
         }
 
-        QuickSortInternal(sortedIndexArray, array, 0, array.Length - 1, sortMethod);
+        QuickSortInternal(sortedIndexArray, array, 0, array.Length-1, sortMethod);
 
         return sortedIndexArray;
     }
@@ -54,7 +51,7 @@ public class SortingTask : Task
         int pointer = low - 1;
 
         for(int i = low; i < high; i++) {
-            if(array[indexArray[i]].CompareThis(compareObj, sortMethod) > 0) {
+            if(array[indexArray[i]].CompareThis(compareObj, sortMethod) < 0) {
                 pointer++;
                 (indexArray[i], indexArray[pointer]) = (indexArray[pointer], indexArray[i]);
             }

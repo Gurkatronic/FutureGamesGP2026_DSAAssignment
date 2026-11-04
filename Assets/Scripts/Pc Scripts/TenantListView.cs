@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TenantListView : MonoBehaviour
@@ -11,9 +12,12 @@ public class TenantListView : MonoBehaviour
     [SerializeField] TenantDataBox[] createdBoxes;
     [SerializeField] SortingTask sortingTask;
 
+    Dictionary<TenantSortMethod, int[]> sortedDict = new();
+
 
 
     public void LoadData(TenantsData data) {
+        sortedDict = new();
         tenantsData = data;
         FillList();
     }
@@ -29,11 +33,17 @@ public class TenantListView : MonoBehaviour
 
     public void SortBy(int sortType) {
         if(sortingTask != null) {
-            TenantSortMethod sortMethod = (TenantSortMethod)sortType;
-            int[] sortedIndexes = sortingTask.Execute(tenantsData.allTenants.ToArray(), sortMethod);
             HideAll();
+            TenantSortMethod sortMethod = (TenantSortMethod)sortType;
 
-            ShowIndexBased(sortedIndexes);
+            if(sortedDict.ContainsKey(sortMethod)) {
+                ShowIndexBased(sortedDict[sortMethod]);
+            }
+            else {
+                int[] sortedIndexes = sortingTask.Execute(tenantsData.allTenants.ToArray(), sortMethod);
+                ShowIndexBased(sortedIndexes);
+                sortedDict.Add(sortMethod, sortedIndexes);
+            } 
         }
     }
 
