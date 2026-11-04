@@ -59321,6 +59321,7 @@ MonoBehaviour:
   tenantDataPrefab: {fileID: 6627796800175627943, guid: 2129dc9acf10e694b8b602760ed13a97, type: 3}
   createdBoxes: []
   sortingTask: {fileID: 11400000, guid: d003e8f8add450842806e0629ff2026d, type: 2}
+  searchRangeTask: {fileID: 11400000, guid: 64fc29fab3876b248ba08f85e9271775, type: 2}
 --- !u!1001 &7628179178574944604
 PrefabInstance:
   m_ObjectHideFlags: 0

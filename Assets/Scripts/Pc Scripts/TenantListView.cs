@@ -11,9 +11,9 @@ public class TenantListView : MonoBehaviour
 
     [SerializeField] TenantDataBox[] createdBoxes;
     [SerializeField] SortingTask sortingTask;
+    [SerializeField] SearchRangeTask searchRangeTask;
 
     Dictionary<TenantSortMethod, int[]> sortedDict = new();
-
 
 
     public void LoadData(TenantsData data) {
@@ -45,6 +45,19 @@ public class TenantListView : MonoBehaviour
                 sortedDict.Add(sortMethod, sortedIndexes);
             } 
         }
+    }
+
+    [ContextMenu("Test range search on exit")]
+    public void TestingRangeSearch() {
+        TenantSortMethod sortMethod = TenantSortMethod.ExitDate;
+        DateTime lowTime = new(1970, 1, 01, 0,0,0);
+        DateTime highTime = new(2234, 8, 4,11,36,58);
+        int[] sortedArrayIndex = sortedDict[sortMethod];
+        (int low, int high) = searchRangeTask.Execute(sortedArrayIndex, tenantsData.allTenants.ToArray(), lowTime, highTime, sortMethod);
+        HideAll();
+        int[] sortedValueRange = sortedArrayIndex[low..(high + 1)];
+
+        ShowIndexBased(sortedValueRange);
     }
 
     public void TestMethod(TenantSortMethod sortMethod) {

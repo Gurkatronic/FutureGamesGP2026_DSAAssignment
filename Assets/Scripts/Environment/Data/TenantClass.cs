@@ -10,8 +10,10 @@ using System.Collections.Generic;
 /// <typeparam name="T">The type of class</typeparam>
 /// <typeparam name="E">The enumerator to pick what field to look at</typeparam>
 public interface IClassCompare<T, E> {
-    public abstract int CompareThis(T b, E e); 
+    public abstract int CompareThis(T b, E e);
+    public abstract int CompareData<D>(D data, E e);
 }
+
 
 [Serializable]
 public class TenantsData
@@ -67,6 +69,7 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
         return string.Compare(a, b);
     }
 
+
     public void InitializeData() {
         InitializeName();
         InitializeDate();
@@ -94,5 +97,21 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
             firstName = splitName[0];
             lastName = splitName[1];
         }
+    }
+
+    public int CompareData<D>(D data, TenantSortMethod e) {
+        switch(e) {
+            case TenantSortMethod.Name:
+                return firstName.CompareTo(data);
+            case TenantSortMethod.AptNum:
+                return apartmentNum.CompareTo(data);
+            case TenantSortMethod.ExitDate:
+                return parsedLastExit.CompareTo(data);
+            case TenantSortMethod.EnterDate:
+                return parsedLastEntrance.CompareTo(data);
+        }
+
+        Debug.Log("Wrong enum value. This should not happen");
+        return -2;
     }
 }

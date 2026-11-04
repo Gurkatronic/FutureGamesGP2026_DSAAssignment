@@ -22,8 +22,11 @@ namespace Environment {
 
         private void Awake() {
 
-            if(Instance != this) {
+            if(Instance == null) {
                 Instance = this;
+            }
+            else {
+                Destroy(gameObject);
             }
             computerTasks.LineUp(testTask);
         }
