@@ -62,7 +62,7 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
             return 0;
     }
     int CompareValues(DateTime a, DateTime b) {
-        return DateTime.Compare(a, b);
+        return DateTime.Compare(a,b);
     }
 
     int CompareValues(string a, string b) {
