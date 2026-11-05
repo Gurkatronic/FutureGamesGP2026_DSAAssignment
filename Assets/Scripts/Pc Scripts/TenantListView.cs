@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TenantListView : MonoBehaviour
@@ -15,9 +16,14 @@ public class TenantListView : MonoBehaviour
 
     Dictionary<TenantSortMethod, int[]> sortedDict = new();
 
+    [SerializeField] TMP_InputField lowField;
+    [SerializeField] TMP_InputField highField;
+    DateTimeExtension dateTimeExtension;
+
 
     public void LoadData(TenantsData data) {
         sortedDict = new();
+        dateTimeExtension = new();
         tenantsData = data;
         FillList();
     }
@@ -60,14 +66,35 @@ public class TenantListView : MonoBehaviour
         ShowIndexBased(sortedValueRange);
     }
 
+    public void SearchRange() {
+        //maybe a way for it to read the string and see what is implied
+        TenantSortMethod sortMethod = TenantSortMethod.ExitDate;
+        int[] sortedArrayIndex = sortedDict[sortMethod];
+        (DateTime lowBound, DateTime highBound) = dateTimeExtension.FormatDate(lowField.text);
+        (DateTime lowBound2, DateTime highBound2) = dateTimeExtension.FormatDate(highField.text);
+
+        Debug.Log("looping all elements according to sorted array index");
+        for(int i = 0; i < sortedArrayIndex.Length; i++) {
+            Debug.Log($"Index: {i} - {tenantsData.allTenants[sortedArrayIndex[i]].lastExitFromEngineRoom}");
+        }
+
+        (int low, int high) = searchRangeTask.Execute(sortedArrayIndex, tenantsData.allTenants.ToArray(), lowBound, highBound2, sortMethod);
+        int[] sortedValueRange = sortedArrayIndex[low..high];
+        Debug.Log($"SortedValue len: " + sortedValueRange.Length);
+        Debug.Log($"len should be: {high-low} ");
+        ShowIndexBased(sortedValueRange);
+    }
+
     public void TestMethod(TenantSortMethod sortMethod) {
 
     }
 
     void ShowIndexBased(int[] index) {
+        HideAll();
         for(int i = 0; i < index.Length; i++) {
             createdBoxes[i].ShowData(tenantsData.allTenants[index[i]]);
         }
+        Debug.Log("Showing " + index.Length + " elements");
     }
 
     void HideAll() {

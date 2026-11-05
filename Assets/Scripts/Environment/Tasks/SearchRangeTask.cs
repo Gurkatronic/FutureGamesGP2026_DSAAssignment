@@ -7,10 +7,48 @@ public class SearchRangeTask : Task {
         
     }
     public (int, int) Execute<T, R, E>(int[]sortedIndex, T[]referenceArray, R lowSearch, R highSearch, E searchMethod) where T: IClassCompare<T,E> {
-        int low = BinaryRangeSearch(sortedIndex, referenceArray, lowSearch, searchMethod);
-        int high = BinaryRangeSearch(sortedIndex, referenceArray, highSearch, searchMethod);
-        Debug.Log($"Range found is at index low {low} and high {high}");
-        return (low, high);
+        Debug.Log($"Low value: {lowSearch.ToString()} high value: {highSearch.ToString()} ");
+        Debug.Log("Looping all elements from the sorted index to see if they are sorted");
+
+        int middle = sortedIndex.Length / 2;
+        Debug.Log("Ref array len: " + referenceArray.Length);
+        int lowest = LowerBoundSearch(sortedIndex, referenceArray, lowSearch, 0, sortedIndex.Length, searchMethod);
+        int highest = UpperBoundSearch(sortedIndex, referenceArray, highSearch, 0, sortedIndex.Length, searchMethod);
+        Debug.Log($"lowest index {lowest} : Highest index {highest}");
+        if(lowest > highest)
+            (lowest, highest) = (highest, lowest);
+
+        return (lowest, highest);
+    }
+
+    int LowerBoundSearch<T, R, E>(int[] sortedIndex, T[] referenceArray, R searchValue,int low, int high, E searchMethod)where T : IClassCompare<T, E> {
+
+        while(low < high) {
+            int middle = low + (high - low) / 2;
+            int compareValue = referenceArray[sortedIndex[middle]].CompareData(searchValue, searchMethod);
+
+            if(compareValue < 0)
+                low = middle + 1;
+            else
+                high = middle;
+        }
+
+        return low; 
+    }
+
+    int UpperBoundSearch<T, R, E>(int[] sortedIndex, T[] referenceArray, R searchValue,int low, int high, E searchMethod) where T : IClassCompare<T, E> {
+
+        while(low < high) {
+            int middle = low + (high - low) / 2;
+            int compareValue = referenceArray[sortedIndex[middle]].CompareData(searchValue, searchMethod);
+
+            if(compareValue <= 0)
+                low = middle + 1;
+            else
+                high = middle;
+        }
+
+        return low;
     }
 
     int BinaryRangeSearch<T, R, E>(int[] sortedIndex, T[] referenceArray, R searchValue, E searchMethod) where T: IClassCompare<T,E> {
