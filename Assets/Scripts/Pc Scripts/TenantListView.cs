@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class TenantListView : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class TenantListView : MonoBehaviour
 
     [SerializeField] TMP_InputField lowField;
     [SerializeField] TMP_InputField highField;
+    [SerializeField] TMP_InputField singleField;
     DateTimeExtension dateTimeExtension;
 
 
@@ -73,19 +76,31 @@ public class TenantListView : MonoBehaviour
         (DateTime lowBound, DateTime highBound) = dateTimeExtension.FormatDate(lowField.text);
         (DateTime lowBound2, DateTime highBound2) = dateTimeExtension.FormatDate(highField.text);
 
-        Debug.Log("looping all elements according to sorted array index");
-        for(int i = 0; i < sortedArrayIndex.Length; i++) {
-            Debug.Log($"Index: {i} - {tenantsData.allTenants[sortedArrayIndex[i]].lastExitFromEngineRoom}");
-        }
-
+        Stopwatch stopwatch = new();
+        stopwatch.Start(); //<---------------------------------------------------------------------------start
         (int low, int high) = searchRangeTask.Execute(sortedArrayIndex, tenantsData.allTenants.ToArray(), lowBound, highBound2, sortMethod);
+        stopwatch.Stop();//<-----------------------------------------------------------------------------stop
+        //float timerAfter = Time.time;
         int[] sortedValueRange = sortedArrayIndex[low..high];
-        Debug.Log($"SortedValue len: " + sortedValueRange.Length);
-        Debug.Log($"len should be: {high-low} ");
+        Debug.Log("Time spent searching range: " + stopwatch.ElapsedMilliseconds + " ms");
+        Debug.Log("Time spent searching range: " + stopwatch.ElapsedTicks + " ticks");
+
         ShowIndexBased(sortedValueRange);
     }
 
-    public void TestMethod(TenantSortMethod sortMethod) {
+    [ContextMenu("Test linearSearch")]
+    public void TestMethod() {
+        //"2234-08-07T10:42:00"
+        string searchString = singleField.text;
+        TenantSortMethod sortMethod = TenantSortMethod.ExitDate;
+        (DateTime lowBound, DateTime highBound) = dateTimeExtension.FormatDate(searchString);
+        Stopwatch lineStop = new();
+        int[] sortedIndex = sortedDict[sortMethod];
+        lineStop.Start(); //<---------------------------------------------------------------------------start
+        searchRangeTask.LinSearch(sortedIndex, tenantsData.allTenants.ToArray(), lowBound, sortMethod);
+        lineStop.Stop(); //<-----------------------------------------------------------------------------stop
+        Debug.Log("Time spent searching linear: " + lineStop.ElapsedMilliseconds + " ms");
+        Debug.Log("Time spent searching linear: " + lineStop.ElapsedTicks + " ticks");
 
     }
 
@@ -94,7 +109,7 @@ public class TenantListView : MonoBehaviour
         for(int i = 0; i < index.Length; i++) {
             createdBoxes[i].ShowData(tenantsData.allTenants[index[i]]);
         }
-        Debug.Log("Showing " + index.Length + " elements");
+        //Debug.Log("Showing " + index.Length + " elements");
     }
 
     void HideAll() {

@@ -27,7 +27,7 @@ public class SearchRangeTask : Task {
             int middle = low + (high - low) / 2;
             int compareValue = referenceArray[sortedIndex[middle]].CompareData(searchValue, searchMethod);
 
-            if(compareValue < 0)
+            if(compareValue < 0) //om mitt värdet är mindre än sök värdet flytter vi fram lägsta värdet
                 low = middle + 1;
             else
                 high = middle;
@@ -49,6 +49,16 @@ public class SearchRangeTask : Task {
         }
 
         return low;
+    }
+
+    public void LinSearch<T, R, E>(int[] sortedIndex, T[] referenceArray, R search, E searchMethod) where T: IClassCompare<T, E> {
+
+        for(int i = 0; i < sortedIndex.Length; i++) {
+            if(referenceArray[sortedIndex[i]].CompareData(search,searchMethod) == 0) {
+                Debug.Log("found value");
+                return;
+            }
+        }
     }
 
     int BinaryRangeSearch<T, R, E>(int[] sortedIndex, T[] referenceArray, R searchValue, E searchMethod) where T: IClassCompare<T,E> {
