@@ -12,6 +12,27 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
         this.sortMethod = sortMethod;
     }
 
+    public T Find<D>(D searchValue) {
+        T foundobject = default(T);
+
+        Node<T> currentNode = root;
+
+        while(currentNode != null) {
+            int compareValue = currentNode.data.CompareData(searchValue, sortMethod);
+
+            if(compareValue == 0) {
+                foundobject = currentNode.data;
+                break;
+            }
+            else if(compareValue < 0) 
+                currentNode = currentNode.left;
+            else
+                currentNode = currentNode.right;
+        }
+
+        return foundobject;
+    }
+
     public List<T>? FindRange<D>(D lowRange, D highRange) { //DFS search, dive hard to either edge to find values.
                                                             //So by going in order traversal here and checking left first i get the values in the right order
                                                             // 0->10

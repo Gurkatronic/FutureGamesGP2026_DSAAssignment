@@ -6,15 +6,14 @@ public class SearchRangeTask : Task {
     public override void Execute() {
         
     }
+
+    //need a range task for linear search here
     public (int, int) Execute<T, R, E>(int[]sortedIndex, T[]referenceArray, R lowSearch, R highSearch, E searchMethod) where T: IClassCompare<T,E> {
-        Debug.Log($"Low value: {lowSearch.ToString()} high value: {highSearch.ToString()} ");
-        Debug.Log("Looping all elements from the sorted index to see if they are sorted");
 
         int middle = sortedIndex.Length / 2;
-        Debug.Log("Ref array len: " + referenceArray.Length);
         int lowest = LowerBoundSearch(sortedIndex, referenceArray, lowSearch, 0, sortedIndex.Length, searchMethod);
         int highest = UpperBoundSearch(sortedIndex, referenceArray, highSearch, 0, sortedIndex.Length, searchMethod);
-        Debug.Log($"lowest index {lowest} : Highest index {highest}");
+
         if(lowest > highest)
             (lowest, highest) = (highest, lowest);
 

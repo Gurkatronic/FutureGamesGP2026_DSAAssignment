@@ -4,11 +4,23 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 public enum StructureType {
     Array = 0,
     PresortedIndex = 1,
     List = 2,
-    Tree = 3
+}
+
+public struct MeasureData {
+    public string name;
+    public float timeMs;
+    public float timeTicks;
+
+    public MeasureData(string name, float timeMs, float timeTicks) {
+        this.name = name;
+        this.timeMs = timeMs;
+        this.timeTicks = timeTicks;
+    }
 }
 
 public class TeacherBox : MonoBehaviour
@@ -22,7 +34,7 @@ public class TeacherBox : MonoBehaviour
     [Header("Single field")]
     [SerializeField] TMP_InputField singleInputField;
     TextMeshProUGUI singlePlaceHolder;
-    [SerializeField] Button singleSarchButton;
+    [SerializeField] Button singleSearchButton;
     [Space(10)]
 
     [Header("Multiple fields")]
@@ -44,12 +56,26 @@ public class TeacherBox : MonoBehaviour
     [SerializeField] JsonLoadTask jsonLoadTask;
     [SerializeField] SortingTask sortingTask;
     [SerializeField] SearchRangeTask searchRangeTask;
+    [SerializeField] BinaryTreeTask binaryTreeTask;
+    [SerializeField] LinearSearchTask linearSearchTask;
     [Space(10)]
 
     [Header("Data")]
     [SerializeField] TenantsData tenantsData;
 
-    [SerializeField] MeasureStick testStick;
+    [SerializeField] MeasureStick measureStickPrefab;
+    [SerializeField] GameObject measureMSParent;
+    [SerializeField] GameObject measureTICKParent;
+
+
+    private void Update() {
+        CheckTextFields();
+    }
+
+    void CheckTextFields() {
+        singleSearchButton.interactable = singleInputField.text.Length > 0;
+        searchRangeButton.interactable = (lowRangeField.text.Length > 0 && highRangeField.text.Length > 0);
+    }
 
     private void Start() {
         PrepareFieldDropdown<TenantSortMethod>(fieldDropDown);
@@ -58,6 +84,43 @@ public class TeacherBox : MonoBehaviour
         tenantsData = jsonLoadTask.FetchDataList();
 
         structurePrepareTask.Execute(tenantsData);
+    }
+
+    public void SortButton() {
+
+    }
+
+    public void SingleSearch() { //testing for now
+        List<MeasureData> measureDatas = new();
+        string searchValue = singleInputField.text;
+
+        Stopwatch stopwatch = new();
+        stopwatch.Start();
+        linearSearchTask.Execute(tenantsData.allTenants, searchValue, currentSortMethod);
+        stopwatch.Stop();
+        MeasureData measureData = new("linearsearch", stopwatch.ElapsedMilliseconds, stopwatch.ElapsedTicks);
+        measureDatas.Add(measureData);
+
+        ShowMeasurements(measureDatas);
+
+    }
+
+    void ShowMeasurements(List<MeasureData> measureDatas) {
+        while(measureMSParent.transform.childCount > 0) {
+            Destroy(measureMSParent.transform.GetChild(0).gameObject);
+        }
+
+        while(measureTICKParent.transform.childCount > 0) {
+            Destroy(measureTICKParent.transform.GetChild(0).gameObject);
+        }
+
+        foreach(MeasureData data in measureDatas) {
+            MeasureStick newStickMS = Instantiate(measureStickPrefab, measureMSParent.transform);
+            MeasureStick newStickTICK = Instantiate(measureStickPrefab, measureTICKParent.transform);
+
+            newStickMS.FillStick(data.name, 1f, data.timeMs);
+            newStickTICK.FillStick(data.name, 1f, data.timeTicks);
+        }
     }
 
     void PrepareFieldDropdown<E>(TMP_Dropdown dropdown) where E: Enum{
@@ -74,8 +137,4 @@ public class TeacherBox : MonoBehaviour
         currentSortMethod = (TenantSortMethod)value;
     }
 
-    [ContextMenu("test stick")]
-    public void TestMeasureStick() {
-        testStick.FillStick("Linear", 1f, 23053f);
-    }
 }

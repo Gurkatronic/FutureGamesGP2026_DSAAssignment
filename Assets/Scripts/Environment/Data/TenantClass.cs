@@ -105,7 +105,7 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
     public int CompareData<D>(D data, TenantSortMethod e) {
         switch(e) {
             case TenantSortMethod.Name:
-                return firstName.CompareTo(data);
+                return name.CompareTo(data);
             case TenantSortMethod.AptNum:
                 return apartmentNum.CompareTo(data);
             case TenantSortMethod.ExitDate:
