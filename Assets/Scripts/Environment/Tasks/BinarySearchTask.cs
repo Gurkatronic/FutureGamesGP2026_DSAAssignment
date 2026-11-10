@@ -22,9 +22,9 @@ public class BinarySearchTask : Task {
 
         int low = 0;
         int high = size - 1;
-        int middle = (high - low) / 2;
 
-        while(low < high) {
+        while(low <= high) {
+            int middle = (low+high) / 2;
             int compareValue = data[middle].CompareData(searchValue, sortMethod);
 
             if(compareValue == 0) {
@@ -37,7 +37,6 @@ public class BinarySearchTask : Task {
             else 
                 high = middle - 1;
 
-            middle = (high - low) / 2;
         }
     }
 

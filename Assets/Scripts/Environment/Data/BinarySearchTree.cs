@@ -18,13 +18,15 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
         Node<T> currentNode = root;
 
         while(currentNode != null) {
+            
             int compareValue = currentNode.data.CompareData(searchValue, sortMethod);
 
             if(compareValue == 0) {
                 foundobject = currentNode.data;
-                break;
+                Debug.Log("Found data in tree");
+                return foundobject;
             }
-            else if(compareValue < 0) 
+            else if(compareValue > 0) 
                 currentNode = currentNode.left;
             else
                 currentNode = currentNode.right;

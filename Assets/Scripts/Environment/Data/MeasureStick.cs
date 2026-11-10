@@ -16,7 +16,6 @@ public class MeasureStick : MonoBehaviour
     [SerializeField] RectTransform rectTransform;
     [SerializeField] Image imageComp;
     [SerializeField] TextMeshProUGUI nameTextBox;
-    [SerializeField] TextMeshProUGUI timeTextBox;
     
     Vector2 targetSize = new Vector2(50,0);
 
@@ -37,8 +36,7 @@ public class MeasureStick : MonoBehaviour
     }
 
     public void FillStick(string stickName, float percentage, float value) {
-        nameTextBox.text = stickName;
-        timeTextBox.text = value.ToString();
+        nameTextBox.text = stickName + " " + value.ToString();
         float newValue = Mathf.Lerp(0, 350, percentage);
         targetSize = new Vector2(rectTransform.sizeDelta.x, newValue);
         currentState = StickState.fill;

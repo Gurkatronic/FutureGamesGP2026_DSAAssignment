@@ -40,7 +40,7 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
         int returnValue = 0;
         switch(e) {
             case TenantSortMethod.Name:
-                returnValue = CompareValues(firstName, b.firstName);
+                returnValue = CompareValues(name, b.name);
                 break;
             case TenantSortMethod.AptNum:
                 returnValue = CompareValues(apartmentNum, b.apartmentNum);

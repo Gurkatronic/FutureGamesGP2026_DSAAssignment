@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 public enum StructureType {
     Array = 0,
     PresortedIndex = 1,
@@ -58,6 +59,7 @@ public class TeacherBox : MonoBehaviour
     [SerializeField] SearchRangeTask searchRangeTask;
     [SerializeField] BinaryTreeTask binaryTreeTask;
     [SerializeField] LinearSearchTask linearSearchTask;
+    [SerializeField] BinarySearchTask binarySearchTask;
     [Space(10)]
 
     [Header("Data")]
@@ -94,25 +96,45 @@ public class TeacherBox : MonoBehaviour
         List<MeasureData> measureDatas = new();
         string searchValue = singleInputField.text;
 
-        Stopwatch stopwatch = new();
-        stopwatch.Start();
-        linearSearchTask.Execute(tenantsData.allTenants, searchValue, currentSortMethod);
-        stopwatch.Stop();
-        MeasureData measureData = new("linearsearch", stopwatch.ElapsedMilliseconds, stopwatch.ElapsedTicks);
-        measureDatas.Add(measureData);
+        
+        List<Tenant> unsortedList = tenantsData.allTenants;
+        List<Tenant> sortedList = tenantsData.sortedArrays[currentSortMethod].ToList();
+        Tenant[] unsortedArray = tenantsData.allTenants.ToArray();
+        Tenant[] sortedArray = tenantsData.sortedArrays[currentSortMethod];
+        BinaryTree<Tenant, TenantSortMethod> binaryTree = tenantsData.binaryTrees[currentSortMethod];
+
+        Stopwatch stopwatchLin = MeasureFunction(() => linearSearchTask.Execute(tenantsData.allTenants, searchValue, currentSortMethod));
+        MeasureData measureDataLin = new("linearsearch", stopwatchLin.ElapsedMilliseconds, stopwatchLin.ElapsedTicks);
+        measureDatas.Add(measureDataLin);
+
+        Stopwatch stopwatchTree = MeasureFunction(() => binaryTreeTask.Execute(tenantsData.binaryTrees[currentSortMethod], searchValue));
+        MeasureData measureDataTree = new("Tree search", stopwatchTree.ElapsedMilliseconds, stopwatchTree.ElapsedTicks);
+        measureDatas.Add(measureDataTree);
+
+        Stopwatch stopwatchBin = MeasureFunction(() => binarySearchTask.Execute(sortedArray, searchValue, currentSortMethod));
+        MeasureData measureDataBin = new("Binary search", stopwatchBin.ElapsedMilliseconds, stopwatchBin.ElapsedTicks);
+        measureDatas.Add(measureDataBin);
 
         ShowMeasurements(measureDatas);
+    }
 
+    Stopwatch MeasureFunction(Action action) {
+        Stopwatch stopwatch = new();
+        stopwatch.Start();
+        action.Invoke();
+        stopwatch.Stop();
+        return stopwatch;
     }
 
     void ShowMeasurements(List<MeasureData> measureDatas) {
-        while(measureMSParent.transform.childCount > 0) {
-            Destroy(measureMSParent.transform.GetChild(0).gameObject);
+        foreach(Transform child in measureMSParent.transform) {
+            Destroy(child.gameObject);
         }
 
-        while(measureTICKParent.transform.childCount > 0) {
-            Destroy(measureTICKParent.transform.GetChild(0).gameObject);
+        foreach(Transform child in measureTICKParent.transform) {
+            Destroy(child.gameObject);
         }
+
 
         foreach(MeasureData data in measureDatas) {
             MeasureStick newStickMS = Instantiate(measureStickPrefab, measureMSParent.transform);

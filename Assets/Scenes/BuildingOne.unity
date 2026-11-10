@@ -64410,6 +64410,14 @@ PrefabInstance:
       value: TeacherBox
       objectReference: {fileID: 0}
     - target: {fileID: 6150725672213634489, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: binaryTreeTask
+      value: 
+      objectReference: {fileID: 11400000, guid: 975a2ff31e84dd44186a111b29450190, type: 2}
+    - target: {fileID: 6150725672213634489, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: binarySearchTask
+      value: 
+      objectReference: {fileID: 11400000, guid: ba5b59a389f7fdd4482ad6493ddabe05, type: 2}
+    - target: {fileID: 6150725672213634489, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
       propertyPath: linearSearchTask
       value: 
       objectReference: {fileID: 11400000, guid: ffb3b3576f947c440a42097e7dcb6373, type: 2}
