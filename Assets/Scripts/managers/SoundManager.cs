@@ -17,6 +17,7 @@ public enum SoundClipType {
     DoorHandle,
     LockKey
 }
+
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
