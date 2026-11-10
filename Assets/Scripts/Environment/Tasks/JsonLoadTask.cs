@@ -6,7 +6,7 @@ using UnityEngine;
 public class JsonLoadTask : Task
 {
     [SerializeField] TextAsset jsonFile;
-    [SerializeField] TenantsData testShow;
+    [SerializeField] TenantsData savedData;
   
     public override void Execute() {
         string jsonText = jsonFile.text;
@@ -16,8 +16,11 @@ public class JsonLoadTask : Task
             tenantsData.allTenants[i].InitializeData();
         }
 
-        testShow = tenantsData;
+        savedData = tenantsData;
         Computer.Instance.ReciveTenants(tenantsData);
+    }
 
+    public TenantsData FetchDataList() {
+        return savedData;
     }
 }

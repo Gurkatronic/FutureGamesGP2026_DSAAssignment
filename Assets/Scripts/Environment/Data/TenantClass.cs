@@ -19,9 +19,9 @@ public interface IClassCompare<T, E> {
 public class TenantsData
 {
     public List<Tenant> allTenants = new List<Tenant>();
-
     public Dictionary<TenantSortMethod, int[]> sortedIndexDict = new Dictionary<TenantSortMethod, int[]>();
-    
+    public Dictionary<TenantSortMethod, Tenant[]> sortedArrays = new();
+    public Dictionary<TenantSortMethod, BinaryTree<Tenant, TenantSortMethod>> binaryTrees = new();
 }
 
 [Serializable]
