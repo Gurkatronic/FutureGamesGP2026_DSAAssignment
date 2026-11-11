@@ -64438,6 +64438,14 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6150725672213634489, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: maxMs
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150725672213634489, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: maxTick
+      value: 50000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150725672213634489, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
       propertyPath: binaryTreeTask
       value: 
       objectReference: {fileID: 11400000, guid: 975a2ff31e84dd44186a111b29450190, type: 2}
