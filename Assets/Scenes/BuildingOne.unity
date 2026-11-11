@@ -64409,6 +64409,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeacherBox
       objectReference: {fileID: 0}
+    - target: {fileID: 5528295859901110406, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528295859901110406, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528295859901110406, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8009808334309552977}
+    - target: {fileID: 5528295859901110406, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528295859901110406, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartMultipleSearch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528295859901110406, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TeacherBox, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5528295859901110406, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6150725672213634489, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
       propertyPath: binaryTreeTask
       value: 
@@ -64443,7 +64471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6158038730361629134, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SingleSearch
+      value: StartSingleSearch
       objectReference: {fileID: 0}
     - target: {fileID: 6158038730361629134, guid: 5b3f331ca6cfdc24b80e3a7a206d642f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

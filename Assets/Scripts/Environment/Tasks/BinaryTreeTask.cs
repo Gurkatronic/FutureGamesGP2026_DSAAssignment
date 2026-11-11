@@ -12,7 +12,13 @@ public class BinaryTreeTask : Task {
         return binaryTree.Find(searchValue);
     }
 
-    public List<T> Execute<T, R, E>(BinaryTree<T, E> binaryTree, R searchLow, R searchHigh) where T : IClassCompare<T, E> {
+
+    public List<T> ExecuteDFS<T, R, E>(BinaryTree<T, E> binaryTree, R searchLow, R searchHigh) where T : IClassCompare<T, E> {
         return binaryTree.FindRange(searchLow, searchHigh);
     }
+
+    public List<T> ExecuteBFS<T,R,E>(BinaryTree<T,E> binaryTree, R searchLow, R searchHigh) where T : IClassCompare<T, E> {
+        return binaryTree.FindRangeBFS(searchLow, searchHigh);
+    }
+
 }

@@ -23,7 +23,7 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
 
             if(compareValue == 0) {
                 foundobject = currentNode.data;
-                Debug.Log("Found data in tree");
+                Debug.Log("Found data match: "+ foundobject.PrintClass());
                 return foundobject;
             }
             else if(compareValue > 0) 
@@ -84,6 +84,37 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
         }
 
         Console.WriteLine("Nodes checked: " + nodesChecked);
+        return foundObjects;
+    }
+
+    public List<T> FindRangeBFS<D>(D lowRange, D highRange) {
+        List<T> foundObjects = new List<T>();
+
+        //BFS breadth wide search
+        //Should add all the nodes into a que
+        Queue<Node<T>> queNodes = new();
+        Node<T> currentNode = root;
+        queNodes.Enqueue(currentNode);
+
+        while(queNodes.Count > 0) {
+            currentNode = queNodes.Dequeue();
+
+            if(currentNode != null) {
+                int compareLow = currentNode.data.CompareData(lowRange, sortMethod);
+                int compareHigh = currentNode.data.CompareData(highRange, sortMethod);
+
+                if(compareLow >= 0 && compareHigh <= 0)
+                    foundObjects.Add(currentNode.data);
+
+                if(compareLow > 0  && currentNode.left != null) {
+                    queNodes.Enqueue(currentNode.left);
+                }
+                if(compareHigh <= 0 && currentNode.right != null) {
+                    queNodes.Enqueue(currentNode.right);
+                }
+            }
+        }
+
         return foundObjects;
     }
 
@@ -183,7 +214,8 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
         TakeRootRecursive(dataArray, low, high);
     }
 
-    void TakeRootRecursive(T[] dataArray, int low, int high) {
+    void TakeRootRecursive(T[] dataArray, int low, int high) { //made this function recursively because its much easier
+                                                               //to read and its the same method quicksort uses
         if(low > high) return;
 
         int middle = (low + high) / 2;
@@ -214,7 +246,7 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
                     currentNode = currentNode.left;
                 }
             }
-            else {
+            else { //using else here to shove duplicates to the right
                 if(currentNode.right == null) {
                     currentNode.right = new(data);
                     break;

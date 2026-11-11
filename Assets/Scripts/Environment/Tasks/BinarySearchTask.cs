@@ -28,7 +28,7 @@ public class BinarySearchTask : Task {
             int compareValue = data[middle].CompareData(searchValue, sortMethod);
 
             if(compareValue == 0) {
-                Debug.Log("Found the data at index " + middle);
+                Debug.Log("Found data with class: " + data[middle].PrintClass());
                 break;
             }
 
@@ -60,7 +60,7 @@ public class BinarySearchTask : Task {
             int compareValue = data[middle].CompareData(searchValue, sortMethod);
 
             if(compareValue == 0) {
-                Debug.Log("Found the data at index " + middle);
+                Debug.Log("Found data with class: " + data[middle].PrintClass());
                 break;
             }
 

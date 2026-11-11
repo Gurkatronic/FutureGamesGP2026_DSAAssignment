@@ -12,6 +12,7 @@ using System.Collections.Generic;
 public interface IClassCompare<T, E> {
     public abstract int CompareThis(T b, E e);
     public abstract int CompareData<D>(D data, E e);
+    public abstract string PrintClass();
 }
 
 
@@ -116,5 +117,10 @@ public class Tenant : IClassCompare<Tenant, TenantSortMethod> { //ska konvertera
 
         Debug.Log("Wrong enum value. This should not happen");
         return -2;
+    }
+
+    public string PrintClass() {
+        string constructedInfo = $"{apartmentNum}. {name} - Last entrance: {lastEntranceInEngineRoom} > Last exit: {lastExitFromEngineRoom}";
+        return constructedInfo;
     }
 }

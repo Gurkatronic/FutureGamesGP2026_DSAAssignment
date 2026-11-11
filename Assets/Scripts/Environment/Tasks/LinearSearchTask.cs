@@ -22,7 +22,7 @@ public class LinearSearchTask : Task {
         for(int i = 0; i < data.Length; i++) {
             if(data[i].CompareData(searchValue, sortMethod) == 0) {
                 found = true;
-                Debug.Log("Found matching data at index " + i);
+                Debug.Log("Found data with class: " + data[i].PrintClass());
                 break;
             }
         }
@@ -45,7 +45,7 @@ public class LinearSearchTask : Task {
         for(int i = 0; i < data.Count; i++) {
             if(data[i].CompareData(searchValue, sortMethod) == 0) {
                 found = true;
-                Debug.Log("Found matching data at index " + i);
+                Debug.Log("Found data with class: " + data[i].PrintClass());
                 break;
             }
         }
