@@ -47,7 +47,6 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
 
         Stack<Node<T>> stackNodes = new(); //we use a stack cause we want to check the top element first
         Node<T> currentNode = root;
-        int nodesChecked = 0;
 
         while(currentNode != null || stackNodes.Count > 0) {
 
@@ -55,7 +54,6 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
 
                 stackNodes.Push(currentNode); // save previous node so we can backtrack
                 int compareLow = currentNode.data.CompareData(lowRange, sortMethod);
-                nodesChecked++;
 
                 if(compareLow > 0) { // if value node is 2005 and low is 2002    2005 > 2002 will be 1 go left
                     currentNode = currentNode.left;
@@ -69,7 +67,6 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
 
                 int compareLow = currentNode.data.CompareData(lowRange, sortMethod);
                 int compareHigh = currentNode.data.CompareData(highRange, sortMethod);
-                nodesChecked += 2; //cause we do a double check here
 
                 if(compareLow >= 0 && compareHigh <= 0) { //check if the node is within range here
                     foundObjects.Add(currentNode.data);
@@ -82,8 +79,6 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
                     currentNode = null;
             }
         }
-
-        Console.WriteLine("Nodes checked: " + nodesChecked);
         return foundObjects;
     }
 
