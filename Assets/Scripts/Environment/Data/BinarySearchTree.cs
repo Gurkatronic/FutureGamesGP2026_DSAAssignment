@@ -75,11 +75,11 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
                     foundObjects.Add(currentNode.data);
                 }
 
-                if(compareHigh < 0) { // do we need to go further right, 2005 node   2008 high range  will be -1 so we need to go furter to the right
+                if(compareHigh <= 0) { // do we need to go further right, 2005 node   2008 high range  will be -1 so we need to go furter to the right
                     currentNode = currentNode.right;
                 }
                 else
-                    break;
+                    currentNode = null;
             }
         }
 
@@ -144,7 +144,7 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
         Console.WriteLine($"Visited {nodesVisited} nodes");
     }
 
-    public void PostOrderTraversal() { // root > Right until nothing then pop and start going left
+    public void ReverseOrderTraversal() { // root > Right until nothing then pop and start going left
         if(root == null) {
             Console.WriteLine("Tree is empty take root first");
             return;
@@ -186,7 +186,7 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
         }
 
         if(currentNode != null) {
-            //currentNode.data.PrintData(sortMethod);
+            Debug.Log("This is the data in tree with the 'lowest' value: " + currentNode.data.PrintClass());
         }
     }
 
@@ -203,7 +203,7 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
         }
 
         if(currentNode != null) {
-            //currentNode.data.PrintData(sortMethod);
+            Debug.Log("This is the data in tree with the 'highest' value: " + currentNode.data.PrintClass());
         }
     }
 
@@ -215,7 +215,7 @@ public class BinaryTree<T, E> where T : IClassCompare<T, E> {
     }
 
     void TakeRootRecursive(T[] dataArray, int low, int high) { //made this function recursively because its much easier
-                                                               //to read and its the same method quicksort uses
+                                                               //to read and the guard clause protects it from looping forever
         if(low > high) return;
 
         int middle = (low + high) / 2;
